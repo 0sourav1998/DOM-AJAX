@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+           #container {
+            text-align: center;
+        }
+        #loader{
+            font-size: larger;
+            color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="loader">Loading Data .....</div>
+        <div id="img-container"></div>
+    </div>
+    <script>
+        let container = document.getElementById("container");
+        let loader = document.getElementById("loader");
+        let Imgcontainer= document.getElementById("img-container") ;
+
+        fetch("https://jsonplaceholder.typicode.com/photos").then(r=>r.json()).then(data=>{
+            let photos = data.slice(0,5000) ;
+            for(let items of photos){
+                let img = document.createElement("img");
+                const {url} = items ;
+                img.src = url ;
+                img.height = 300 ;
+                img.width = 300 ;
+                img.style.border = "2px solid black" ;
+                img.style.display = "block";
+                img.style.padding = "5px" ;
+                img.style.margin = "10px";
+                container.append(img);
+            }
+            let loader = document.getElementById("loader");
+            container.removeChild(loader)
+        })
+    </script>
+</body>
+</html>
